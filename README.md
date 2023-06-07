@@ -37,12 +37,9 @@ To get started with the Senior Keeper project, follow these steps:
 2. Install the necessary dependencies by running the following command in the project's root directory: 
 `npm install` 
 
+3. Configure the environment variables by updating the `.env` file(s) with the appropriate values for your local environment.
 
-3. Install Postgresql in your machine (https://www.postgresql.org/download/)
-
-4. Configure the environment variables by updating the `.env` file(s) with the appropriate values for your local environment.
-
-5. Start the application by running the following command:
+4. Start the application by running the following command:
 `npm start`
 
 
