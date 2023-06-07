@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="http://localhost:3000/site/css/login.css">
+
+</head>
+
+<body class="body">
+    <div class="navbar flex justify-end content-center">
+        <ul>
+            <li>
+                <a class="text font-medium ml-auto" href="http://localhost:3000/">
+                    Acceuil
+                </a>
+            </li>
+            <li><a class="text font-medium" href="http://localhost:3000/#Solution">Notre solution</a></li>
+            <li><a class="text font-medium self-end" href="http://localhost:3000/register">Création de compte</a></li>
+            <li><a class="text font-medium self-end" href="http://localhost:3000/login">Connexion</a></li>
+        </ul>
+    </div>
+
+    <div id="app" class="backImageContainer border rounded rounded-lg"> <!-- Vue app -->
+        <form class="form">
+            <h2 class="py-3 px-3"> Connectez-vous à votre compte</h2>
+            <div id="logo-container" class="py-6 px-3">
+                <img src="http://localhost:3000/site/img/logo.png" alt="" srcset="">
+            </div>
+            <div>
+                <label for="phone" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Numéro
+                    de téléphone</label>
+                <input v-model="tel" type="text" id="phone"
+                    class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="07 50 15 83 41" pattern="[0-9]{10}" required>
+
+            </div>
+            <div class="mb-6">
+                <label for="password" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Mot
+                    de passe</label>
+                <input v-model="mdp" type="password" id="password"
+                    class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="•••••••••" required>
+            </div>
+            <p class="text-lg text-red-600">{{message}}</p>
+            <button type="submit" @click="submitForm"
+                class="text-white my-3 mx-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Se
+                connecter</button>
+        </form>
+
+    </div><!-- Vue app -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="http://localhost:3000/site/js/login.js"></script>
+</body>
+
+</html>
