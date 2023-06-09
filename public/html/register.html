@@ -12,11 +12,11 @@
     <div class="navbar flex justify-end content-center">
         <ul>
             <li>
-                <a class="text font-medium ml-auto" href="http://localhost:3000/">
+                <a class="text font-medium ml-auto" href="http://localhost:3000/site">
                     Acceuil
                 </a>
             </li>
-            <li><a class="text font-medium" href="http://localhost:3000/#Solution">Notre solution</a></li>
+            <li><a class="text font-medium" href="http://localhost:3000/site#Solution">Notre solution</a></li>
             <li><a class="text font-medium self-end" href="http://localhost:3000/register">Création de compte</a></li>
             <li><a class="text font-medium self-end" href="http://localhost:3000/login">Connexion</a></li>
         </ul>
@@ -98,8 +98,10 @@
                     </div>
                 <label for="remember" class="ml-2 text-sm font-medium text-xl text-gray-900 dark:text-gray-300">J'accepte <a href="#" class="text-black text-xl hover:underline dark:text-black">les conditions d'utilisations</a>.</label>
             </div>
-            <button type="submit" @click="submitForm"
-                class="text-white my-6 mx-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Créer</button>
+            <button @click="submitForm"
+                class="p-button my-6 mx-3 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                Créer
+            </button>
         </form>
 
     </div> <!-- Vue app -->

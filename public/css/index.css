@@ -1,6 +1,8 @@
 :root {
-    --primary: rgba(45, 119, 205, 0.757);
-  }
+    --primary: rgba(134, 90, 252, 1);
+    --backgroundPrimary: rgba(133, 90, 252, 0.466);
+    --primaryButtonColor: rgb(212, 127, 70);
+}
 
 .body {
     margin: 0;
@@ -46,7 +48,7 @@
     left: 30px;
 }
 
-.navbar li a img{
+.navbar li a img {
     height: 100px;
     width: auto;
 
@@ -73,16 +75,82 @@
     color: white;
     font-size: 24px;
     font-family: Arial, sans-serif;
-    background-image: url('../img/nurse-holding-senior-man-s-hands-comfort.jpg');
+    background-image: url('../img/nurse-holding-senior-man-s-hands-comfort__darker.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 
-.backImageContainer h1{
+.backImageContainer h1 {
     text-align: center;
     padding: 20px;
     color: black;
     font-size: 40px;
     font-family: Arial, sans-serif;
+}
+
+.valuesImg-container {
+    width: 15vw;
+    height: auto;
+    border: 1px solid rgba(128, 128, 128, 0.253);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.p-button{
+    background-color: var(--primaryButtonColor);
+    border-color: black;
+    color: rgb(255, 255, 255);
+}
+
+
+
+.s-button{
+    background-color: white;
+    border-color: black;
+    color: var(--primaryButtonColor);
+}
+
+#title {
+    color: var(--primary);
+}
+
+#text {
+    width: 60vw;
+}
+
+#Solution {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#braceletImg-container {
+    width: 60%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#braceletText-container{
+    width: 40%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#bracelet-container {
+    width: 70vw;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

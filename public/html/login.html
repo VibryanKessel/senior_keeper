@@ -13,11 +13,11 @@
     <div class="navbar flex justify-end content-center">
         <ul>
             <li>
-                <a class="text font-medium ml-auto" href="http://localhost:3000/">
+                <a class="text font-medium ml-auto" href="http://localhost:3000/site">
                     Acceuil
                 </a>
             </li>
-            <li><a class="text font-medium" href="http://localhost:3000/#Solution">Notre solution</a></li>
+            <li><a class="text font-medium" href="http://localhost:3000/site#Solution">Notre solution</a></li>
             <li><a class="text font-medium self-end" href="http://localhost:3000/register">Création de compte</a></li>
             <li><a class="text font-medium self-end" href="http://localhost:3000/login">Connexion</a></li>
         </ul>
@@ -44,10 +44,12 @@
                     class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     placeholder="•••••••••" required>
             </div>
-            <p class="text-lg text-red-600">{{message}}</p>
-            <button type="submit" @click="submitForm"
-                class="text-white my-3 mx-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Se
-                connecter</button>
+            <p class="text-lg text-red-700">{{message}}</p>
+            <button @click="submitForm"
+                class="p-button my-6 mx-3 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                Se connecter
+            </button>
+
         </form>
 
     </div><!-- Vue app -->

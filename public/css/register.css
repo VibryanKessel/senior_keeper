@@ -1,6 +1,8 @@
 :root {
-    --primary: rgba(45, 119, 205, 0.757);
-  }
+    --primary: rgba(134, 90, 252, 1);
+    --backgroundPrimary: rgba(133, 90, 252, 0.466);
+    --primaryButtonColor: rgba(134, 90, 252, 1);
+}
 
 .body {
     margin: 0;
@@ -74,7 +76,7 @@
     color: white;
     font-size: 24px;
     font-family: Arial, sans-serif;
-    background-image: url('../img/nurse-holding-senior-man-s-hands-comfort.jpg');
+    background-image: url('../img/nurse-holding-senior-man-s-hands-comfort__darker.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -93,9 +95,18 @@
     color: white;
     font-size: 24px;
     font-family: Arial, sans-serif;
-    background-color: var(--primary);
+    background-color: var(--backgroundPrimary);
 }
 
+.p-button{
+    background-color: var(--primaryButtonColor);
+    color: white;
+}
+
+.s-button{
+    background-color: white;
+    color: var(--primaryButtonColor);
+}
 
 #logo-container{
     width: 15%;
