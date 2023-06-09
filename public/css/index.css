@@ -89,6 +89,10 @@
     font-family: Arial, sans-serif;
 }
 
+#logo-container{
+    width: 15%;
+    height: auto;
+}
 .valuesImg-container {
     width: 15vw;
     height: auto;
