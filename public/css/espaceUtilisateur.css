@@ -1,0 +1,56 @@
+:root {
+    --primary: rgba(134, 90, 252, 1);
+    --backgroundPrimary: rgba(133, 90, 252, 0.466);
+    --primaryButtonColor: rgb(212, 127, 70);
+}
+
+.body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+
+.navbar {
+    background-color: rgba(197, 171, 146, 0.671);
+    padding: 10px;
+    height: 5vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 999;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    height: 60vh;
+    width: 60vw;
+    color: white;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    background-color: var(--backgroundPrimary);
+}
+
+.logo-container {
+    display: inline-block;
+    position: fixed;
+    height: 100%;
+    width: auto;
+    top: 5px;
+    left: 30px;
+}
+
+.active {
+    @apply bg-blue-500 text-white;
+}
+
+#logo-container{
+    width: 15%;
+    height: auto;
+}

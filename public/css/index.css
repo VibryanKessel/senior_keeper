@@ -90,9 +90,10 @@
 }
 
 #logo-container{
-    width: 15%;
-    height: auto;
+    height: 8vh;
+    width: 5vw;
 }
+
 .valuesImg-container {
     width: 15vw;
     height: auto;
