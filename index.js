@@ -27,6 +27,7 @@ app.use(session({
 }));
 
 app.use('/site',express.static(path.resolve('public')));
+
 app.use('/login',express.static(path.resolve('public/html/login.html')));
 app.use('/register',express.static(path.resolve('public/html/register.html')));
 
@@ -51,6 +52,22 @@ app.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/login');
 });
+
+app.get('/alert', (req, res) => {
+  
+  res.status(200).json({"message":"Alerte bien reçue pour le bracelet : "+req.query.id})
+});
+
+app.post('/alert', (req, res) => {
+  
+  res.status(200).json({"message":"Alerte bien reçue pour le bracelet : "+req.query.id})
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/login');
+});
+
 
 app.post('/register', async (req, res) => {
   const { nom, prenom, adresse, email, telephone, motdepasse } = req.body;
