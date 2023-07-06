@@ -7,8 +7,9 @@ const createDatabase = require('./database');
 const registerUser = require('./src/register');
 const loginUser = require('./src/login');
 const axios = require("axios");
-const addBracelet = require('./src/bracelet');
-const {addContact, deleteContact} = require('./src/contact');
+const {addBracelet, getBracelet} = require('./src/bracelet');
+const {addContact, deleteContact, getContact} = require('./src/contact');
+const getEvent = require('./src/event');
 
 /* import express from 'express';
 import bodyParser from 'body-parser';
@@ -115,7 +116,7 @@ app.post('/login', async (req, res) => {
   const loginResult = await loginUser(telephone, motdepasse);
   if (loginResult.success) {
     req.session.user = loginResult.user;
-    res.set('Location', 'http://82.165.31.82:3000/')
+    res.set('Location', 'http://82.165.31.82:3000/site')
     res.status(200).json({response :'Login successful'});
     console.log('Login successful');
   } else {
@@ -154,6 +155,36 @@ app.post('/deleteContact', async(req,res)=>{
   } else {
     res.status(400).json({response :'Delete failed'});
     console.log('Delete failed');
+  }
+})
+
+app.post('/getContact', async(req,res)=>{
+  const { id_contact } = req.body;
+  const result = await getContact(id_contact);
+  if (result) {
+    res.status(200).json(result)
+  } else {
+    res.status(400).json({message: 'Something went wrong'});
+  }
+})
+
+app.post('/getBracelet', async(req,res)=>{
+  const { id_bracelet } = req.body;
+  const result = await getBracelet(id_bracelet);
+  if (result) {
+    res.status(200).json(result)
+  } else {
+    res.status(400).json({message: 'Something went wrong'});
+  }
+})
+
+app.post('/getEvent', async(req,res)=>{
+  const { id_event } = req.body;
+  const result = await getEvent(id_event);
+  if (result) {
+    res.status(200).json(result)
+  } else {
+    res.status(400).json({message: 'Something went wrong'});
   }
 })
 
