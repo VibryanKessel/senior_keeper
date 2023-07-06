@@ -37,19 +37,32 @@ Vue.component('accordion-item', {
             </div>
             <div v-else-if="accordionScreen === 'report'">
                 <p class="text-2xl flex items-center justify-center"> Signaler un problème sur ce bracelet </p>
+                
                 <form class="form">
                     <div>
-                        <label for="messageReport" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom du bracelet</label>
-                        <input type="textarea" id="messageReport" required>
+                        <label for="messageReport" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Message</label>
+                        <textarea v-model="message" id="messageReport" required></textarea>
                     </div>
                     <button type="submit" class="p-button ">
                         Valider
                     </button>
                 </form>
+                
                 <button @click="screenButtonClick(null)" class = "" > Retour </button>
             </div>
             <div v-else-if="accordionScreen === 'replace'">
                 <p class="text-2xl flex items-center justify-center"> Remplacer ce bracelet </p>
+                
+                <form class="form">
+                    <div>
+                        <label for="raison" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Raison du changement</label>
+                        <input v-model="raison" type="text" id="raison"required>
+                    </div>
+                    <button @click="" class="p-button">
+                        Valider
+                    </button>
+                </form>
+                
                 <button @click="screenButtonClick(null)" class = "" > Retour </button>
             </div>
             <div v-else>
@@ -65,7 +78,9 @@ Vue.component('accordion-item', {
         isOpen: false,
         accordionScreen : null,
         nomBraceletForm : this.bracelet.braceletName,
-        possesseurForm : this.bracelet.possessor
+        possesseurForm : this.bracelet.possessor,
+        message : "",
+        raison :""
       };
     },
     computed : {
