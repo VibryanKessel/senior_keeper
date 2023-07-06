@@ -60,6 +60,15 @@ app.get('/', (req, res) => {
   }
 })
 
+
+
+app.get('/espaceUtilisateur', (req, res) => {
+  if (req.session.telephone) {
+    express.static(path.resolve('public/html/espaceUtilisateur.html'))
+  } else {
+    res.redirect('/login');
+  }
+})
 // app.get('/login', (req, res) => {e
 //   res.sendFile(path.resolve('./public/html/login.html'));
 // });

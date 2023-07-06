@@ -28,7 +28,7 @@ createApp({
                     console.log(response);
                     if (response.status === 200) {
                         console.log('ok')
-                        window.location.href = "http://82.165.31.82:3000/";
+                        window.location.href = "http://82.165.31.82:3000/espaceUtilisateur";
                     }
                     else {
                         this.message = "Numéro de téléphone ou mot de passe incorrect"
