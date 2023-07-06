@@ -1,6 +1,6 @@
 Vue.component('accordion-item', {
     template: `
-      <div>
+      <div class ="accordion">
         <div @click="toggle" class = "flex flex-row w-1/2 p-2 bg-gray-200 border-t-2 border-gray-400 rounded-b-lg" >
             <div class = "flex flex-col items-center justify-center">
                 <div>
@@ -26,34 +26,49 @@ Vue.component('accordion-item', {
                     <div>
                         <label for="nomBracelet" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom du bracelet</label>
                         <input v-model="nomBraceletForm" type="text" id="nomBracelet"
-                            class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder=" Bracelet de Marguerite" required>
                     </div>
-                    <div>
-                        <label for="possessor" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Possesseur</label>
-                        <input v-model="possesseurForm" type="text" id="possessor"
-                            class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            placeholder=" Bracelet de Marguerite" required>
-                    </div>
-                    <button @click="submitModificationForm" class="p-button my-6 mx-3 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                    <button @click="submitModificationForm" class="p-button ">
                         Valider
                     </button>
                 </form>
 
-                <button @click="screenButtonClick(null)" class = "my-6 mx-3 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center" > Retour </button>
+                <button @click="screenButtonClick(null)" class = "" > Retour </button>
             </div>
             <div v-else-if="accordionScreen === 'report'">
                 <p class="text-2xl flex items-center justify-center"> Signaler un problème sur ce bracelet </p>
-                <button @click="screenButtonClick(null)" class = "my-6 mx-3 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center" > Retour </button>
+                
+                <form class="form">
+                    <div>
+                        <label for="messageReport" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Message</label>
+                        <textarea v-model="message" id="messageReport" required></textarea>
+                    </div>
+                    <button type="submit" class="p-button ">
+                        Valider
+                    </button>
+                </form>
+                
+                <button @click="screenButtonClick(null)" class = "" > Retour </button>
             </div>
             <div v-else-if="accordionScreen === 'replace'">
                 <p class="text-2xl flex items-center justify-center"> Remplacer ce bracelet </p>
-                <button @click="screenButtonClick(null)" class = "my-6 mx-3 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center" > Retour </button>
+                
+                <form class="form">
+                    <div>
+                        <label for="raison" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Raison du changement</label>
+                        <input v-model="raison" type="text" id="raison"required>
+                    </div>
+                    <button @click="" class="p-button">
+                        Valider
+                    </button>
+                </form>
+                
+                <button @click="screenButtonClick(null)" class = "" > Retour </button>
             </div>
             <div v-else>
-                <button @click="screenButtonClick('modify')" class = "my-6 mx-3 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center" > Modifier les informations du bracelet</button>
-                <button @click="screenButtonClick('report')" class = "my-6 mx-3 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center" >Signaler un problème</button>
-                <button @click="screenButtonClick('replace')" class = "my-6 mx-3 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center" >Remplacer bracelet</button>
+                <button @click="screenButtonClick('modify')" class = ""> Modifier les informations du bracelet</button>
+                <button @click="screenButtonClick('report')" class = "">Signaler un problème</button>
+                <button @click="screenButtonClick('replace')" class = "">Remplacer bracelet</button>
             </div>
         </div>
       </div>
@@ -63,7 +78,9 @@ Vue.component('accordion-item', {
         isOpen: false,
         accordionScreen : null,
         nomBraceletForm : this.bracelet.braceletName,
-        possesseurForm : this.bracelet.possessor
+        possesseurForm : this.bracelet.possessor,
+        message : "",
+        raison :""
       };
     },
     computed : {
@@ -83,6 +100,9 @@ Vue.component('accordion-item', {
       },
       submitModificationForm(e){
 
+      },
+      submitReplaceForm(e){
+                
       }
     },
     props: {
@@ -97,6 +117,7 @@ Vue.component('accordion', {
       </div>
     `
 });
+
 
 Vue.component('mesbracelets',{
     template : `
@@ -159,61 +180,4 @@ var app = new Vue({
     methods: {
       
     }
-  });
-  
-
-
-/* createApp({
-    data() {
-        return {
-            nom: "Dubois",
-            prenom: "Alex",
-            tel: null,
-            mdp: null,
-            message: null
-        }
-    },
-    computed: {
-        content() {
-            return ;
-        }
-    },
-    methods: {
-        selectTab(index) {
-            this.selectedTab = index;
-        }
-    },
-    component : {
-        "mesbracelets": Mesbracelets
-    }
-}).mount('#app') */
-
-
-/* 
-createApp({
-    data() {
-        return {
-            tabs: ['Mon bracelet', 'Mes commandes', 'Mes chutes'],
-            selectedTab: 0,
-            nom: "Dubois",
-            prenom: "Alex",
-            tel: null,
-            mdp: null,
-            message: null
-        }
-    },
-    computed: {
-        content() {
-            return ;
-        }
-    },
-    methods: {
-        selectTab(index) {
-            this.selectedTab = index;
-        }
-    },
-    component : {
-        
-    }
-}).mount('#app')
- */
+});
