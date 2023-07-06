@@ -19,7 +19,7 @@ Vue.component('accordion-item', {
             </div>
         </div>
         <div v-show="isOpen" class = "w-1/2 p-2 bg-white-200 border-t-2 border-gray-400 rounded-b-lg" >
-            <div v-if="accordionScreen === 'modify'">
+            <div class = "accordion__title" v-if="accordionScreen === 'modify'">
                 <p class="text-2xl flex items-center justify-center"> Modifier informations du bracelet </p>
                 
                 <form class="form">

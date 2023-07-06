@@ -39,81 +39,15 @@
     height: auto;
 }*/
 
-/* Réinitialisation des styles par défaut */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+
   
-  /* Styles pour le corps de la page */
-  .body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-  }
+
+
   
-  /* Styles pour le conteneur principal */
-  #app {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 12rem;
-  }
+
   
-  /* Styles pour la grille des éléments */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    width: 75%;
-  }
-  
-  /* Styles pour chaque élément de la grille */
-  .grid > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  
-  /* Styles pour l'image du profil */
-  .grid > div img {
-    width: 10rem;
-  }
-  
-  /* Styles pour le lien d'accès au profil */
-  .grid > div a {
-    margin-top: 1rem;
-    font-size: 2rem;
-    text-decoration: none;
-    color: #333;
-  }
-  
-  /* Styles pour le texte de bienvenue */
-  .text-5xl {
-    font-size: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 6rem;
-  }
-  
-  /* Styles pour la section des bracelets */
-  .w-full {
-    width: 100%;
-  }
-  
-  /* Styles pour le logo container */
-  #logo-container {
-    margin: 6rem;
-  }
-  
-  /* Styles pour le logo */
-  #logo-container img {
-    max-width: 100%;
-  }
-  
+
+
   .form {
     font-size: 80%;
     border-radius: 5rem;
@@ -154,23 +88,4 @@
     transform: rotate(180deg);
   }
   
-  /* Styles pour les contenus des sections */
-  .accordion__content {
-   
-  }
   
-  /* Styles pour les sections ouvertes */
-  .accordion__section.open .accordion__content {
-    
-  }
-  
-  /* Styles pour les icônes */
-  .accordion__icon {
-    
-  }
-  
-  .accordion__section.open .accordion__icon {
-    
-  }
-  
-}
