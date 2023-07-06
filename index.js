@@ -3,10 +3,23 @@ const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const session = require('express-session');
 const path = require("path");
-
 const createDatabase = require('./database');
 const registerUser = require('./src/register');
 const loginUser = require('./src/login');
+const axios = require("axios")
+
+/* import express from 'express';
+import bodyParser from 'body-parser';
+import crypto from 'crypto';
+import session from 'express-session';
+import path from 'path';
+import fetch from "node-fetch"
+
+import createDatabase from './database';
+import registerUser from './src/register';
+import loginUser from './src/login';
+import axios from 'axios';
+ */
 
 const app = express();
 const port = 3000;
@@ -17,6 +30,11 @@ const generateSecretKey = () => {
   return buffer.toString('hex');
 };
 
+/* const accountSid = 'AC39f73d3452ca8b401929668fdb996099';
+const authToken = 'a64bdf29f5bd262e533c6c5a75086d55';
+
+const twillioClient = require('twilio')(accountSid, authToken); */
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,10 +44,10 @@ app.use(session({
   saveUninitialized: false,
 }));
 
-app.use('/site',express.static(path.resolve('public')));
+app.use('/site', express.static(path.resolve('public')));
 
-app.use('/login',express.static(path.resolve('public/html/login.html')));
-app.use('/register',express.static(path.resolve('public/html/register.html')));
+app.use('/login', express.static(path.resolve('public/html/login.html')));
+app.use('/register', express.static(path.resolve('public/html/register.html')));
 
 
 app.get('/', (req, res) => {
@@ -53,29 +71,38 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 
-app.get('/alert', (req, res) => {
-  
-  res.status(200).json({"message":"Alerte bien reçue pour le bracelet : "+req.query.id})
-});
 
 app.post('/alert', (req, res) => {
-  
-  res.status(200).json({"message":"Alerte bien reçue pour le bracelet : "+req.query.id})
-});
+  console.log("Alerte bracelet : ", req.body.id)
 
-app.get('/logout', (req, res) => {
-  req.session.destroy();
-  res.redirect('/login');
+  const accountSid = 'AC39f73d3452ca8b401929668fdb996099';
+  const authToken = 'a64bdf29f5bd262e533c6c5a75086d55';
+  const client = require('twilio')(accountSid, authToken);
+
+  const message = "Une alerte à etait détecte chez le patient portant un bracelet Senior Keepers";
+  client.messages
+    .create({
+      body: message,
+      from: '+15734923612',
+      to: '+33751104142'
+    })
+    .then(message => { 
+      res.status(200).json({message:"Alerte bien envoyée"});
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(400).json({message:"Problème lors de l'envoi de l'alerte"})
+    })
 });
 
 
 app.post('/register', async (req, res) => {
   const { nom, prenom, adresse, email, telephone, motdepasse } = req.body;
   const registerResult = await registerUser(nom, prenom, adresse, email, telephone, motdepasse);
-  if(registerResult.success){
+  if (registerResult.success) {
     res.set('Location', 'http://localhost:3000/login')
     res.status(200).send('register successful');
-  }else{
+  } else {
     res.status(400).send('register failed');
     console.log('register failed');
   }
@@ -84,12 +111,12 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   const { telephone, motdepasse } = req.body;
   const loginResult = await loginUser(telephone, motdepasse);
-  if(loginResult.success){
+  if (loginResult.success) {
     req.session.telephone = telephone;
     res.set('Location', 'http://localhost:3000/')
     res.status(200).send('Login successful');
     console.log('Login successful');
-  }else{
+  } else {
     res.status(400).send('Login failed');
     console.log('Login failed');
   }

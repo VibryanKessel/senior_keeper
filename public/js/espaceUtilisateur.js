@@ -61,7 +61,6 @@ Vue.component('accordion-item', {
     data() {
       return {
         isOpen: false,
-        component : `<button>Signaler problème</button>`,
         accordionScreen : null,
         nomBraceletForm : this.bracelet.braceletName,
         possesseurForm : this.bracelet.possessor
