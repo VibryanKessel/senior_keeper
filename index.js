@@ -60,6 +60,15 @@ app.get('/', (req, res) => {
   }
 })
 
+
+
+app.get('/espaceUtilisateur', (req, res) => {
+  if (req.session.telephone) {
+    express.static(path.resolve('public/html/espaceUtilisateur.html'))
+  } else {
+    res.redirect('/login');
+  }
+})
 // app.get('/login', (req, res) => {e
 //   res.sendFile(path.resolve('./public/html/login.html'));
 // });
@@ -102,7 +111,7 @@ app.post('/register', async (req, res) => {
   const { nom, prenom, adresse, email, telephone, motdepasse } = req.body;
   const registerResult = await registerUser(nom, prenom, adresse, email, telephone, motdepasse);
   if (registerResult.success) {
-    res.set('Location', 'http://82.165.31.82:3000/login')
+    res.set('Location', 'http://localhost:3000/login')
     res.status(200).json({response :'register successful'});
   } else {
     res.status(400).json({response :'register failed'});
@@ -115,7 +124,7 @@ app.post('/login', async (req, res) => {
   const loginResult = await loginUser(telephone, motdepasse);
   if (loginResult.success) {
     req.session.user = loginResult.user;
-    res.set('Location', 'http://82.165.31.82:3000/')
+    res.set('Location', 'http://localhost:3000/')
     res.status(200).json({response :'Login successful'});
     console.log('Login successful');
   } else {
