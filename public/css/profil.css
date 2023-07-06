@@ -1,0 +1,16 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    height: 60vh;
+    width: 60vw;
+    color: white;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    background-color: var(--backgroundPrimary);
+}
