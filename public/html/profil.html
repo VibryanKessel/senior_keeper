@@ -18,7 +18,71 @@
         </div>
 
         <div>
-            <div></div>
+
+            
+            <div v-if = "profilScreen == 'commands'">
+                <p> Liste de vos commandes de bracelets </p>
+                
+                <div>
+                    <div v-for = "item in commands" key="item.id">
+                        <br>    
+                        {{item.nomBracelet}}
+                        <p>Date de la commande : {{item.date_cmd}}</p>
+                        <p>Date de la livraison : {{item.date_liv}}</p>
+                        <br>
+                    </div>
+                </div>
+
+                <button @click = "screenButtonClick('')"> Retour </button>
+            </div>
+
+
+            <div v-else-if = "profilScreen == 'modify'">
+                <p> Modifier vos informations personnelles </p>
+                <form class="form">
+                    <div class="mb-6">
+                        <label for="nom" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
+                        <input v-model="nom" type="nom" id="nom"
+                            class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="prenom" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Prénom</label>
+                        <input v-model="prenom" type="prenom" id="prenom"
+                            class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="adresse" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Adresse</label>
+                        <input v-model="adress" type="adresse" id="adresse"
+                            class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            required>
+                    </div>
+                </form>
+                <button @click = "screenButtonClick('')"> Retour </button>
+            </div>
+
+
+
+            <div v-else-if = "profilScreen == 'contacts'">
+                <p> Gestion des contacts d'urgence </p>
+                <div v-for = "item in contacts" key="item.id">
+                    <br>    
+                    {{item.nom}}
+                    <p>Numéro de téléphone : {{item.tel}}</p>
+                    <button>Supprimer</button>
+                    <br>
+                </div>
+                <button @click = "screenButtonClick('')"> Retour </button>
+            </div>
+
+
+            <div v-else>
+                <p> Menu </p>
+                <button @click = "screenButtonClick('modify')"> Modifier mes infos personnelles</button>
+                <button @click = "screenButtonClick('contacts')"> Gérer mes contacts d'urgence </button>
+                <button @click = "screenButtonClick('commands')"> Voir mes commandes </button>
+            </div>
         </div>
     </div> <!-- Vue app -->
     <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
