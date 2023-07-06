@@ -18,6 +18,8 @@
         </div>
 
         <div>
+
+            
             <div v-if = "profilScreen == 'commands'">
                 <p> Liste de vos commandes de bracelets </p>
                 
@@ -33,6 +35,8 @@
 
                 <button @click = "screenButtonClick('')"> Retour </button>
             </div>
+
+
             <div v-else-if = "profilScreen == 'modify'">
                 <p> Modifier vos informations personnelles </p>
                 <form class="form">
@@ -57,6 +61,9 @@
                 </form>
                 <button @click = "screenButtonClick('')"> Retour </button>
             </div>
+
+
+
             <div v-else-if = "profilScreen == 'contacts'">
                 <p> Gestion des contacts d'urgence </p>
                 <div v-for = "item in contacts" key="item.id">
@@ -68,6 +75,8 @@
                 </div>
                 <button @click = "screenButtonClick('')"> Retour </button>
             </div>
+
+
             <div v-else>
                 <p> Menu </p>
                 <button @click = "screenButtonClick('modify')"> Modifier mes infos personnelles</button>
