@@ -1,6 +1,6 @@
 Vue.component('accordion-item', {
     template: `
-      <div>
+      <div class ="accordion">
         <div @click="toggle" class = "flex flex-row w-1/2 p-2 bg-gray-200 border-t-2 border-gray-400 rounded-b-lg" >
             <div class = "flex flex-col items-center justify-center">
                 <div>
