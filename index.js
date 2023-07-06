@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
   }
 })
 
-// app.get('/login', (req, res) => {
+// app.get('/login', (req, res) => {e
 //   res.sendFile(path.resolve('./public/html/login.html'));
 // });
 
@@ -84,7 +84,7 @@ app.post('/alert', (req, res) => {
     .create({
       body: message,
       from: '+15734923612',
-      to: '+33751104142'
+      to: '+33662095641'
     })
     .then(message => { 
       res.status(200).json({message:"Alerte bien envoyée"});
