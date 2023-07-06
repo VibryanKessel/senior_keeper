@@ -7,10 +7,11 @@ const db = pgp({ ...dbConfig, database: dbName })
 
 async function loginUser(tel, password) {
   let success = false;
-  
+  let result;
+
   try {
     const query = 'SELECT motdepasse FROM Personnes WHERE telephone = $1';
-    const result = await db.oneOrNone(query, tel);
+    result = await db.oneOrNone(query, tel);
     
     if (result) {
       const isPasswordValid = await bcrypt.compare(password, result.motdepasse);
@@ -26,7 +27,7 @@ async function loginUser(tel, password) {
     console.error('Error logging in user:', error);
   }
   
-  return {success: success};
+  return {success: success, user: result};
 }
 
 module.exports = loginUser;

@@ -32,8 +32,16 @@ createApp({
                 console.log('2')
             }
             else{
+                console.log({
+                    nom: this.lastName,
+                    prenom: this.name,
+                    adresse: this.address+","+this.zip,
+                    email: this.email,  
+                    telephone: this.tel,
+                    motdepasse: this.mdp
+                });
                 this.message = null
-                axios.post('http://localhost:3000/register', {
+                axios.post('http://82.165.31.82:3000/register', {
                     nom: this.lastName,
                     prenom: this.name,
                     adresse: this.address+","+this.zip,
@@ -43,7 +51,7 @@ createApp({
                 }).then(function (response) {
                     console.log(response);
                     if (response.status == 200) {
-                        window.location.replace("http://localhost:3000/");
+                        window.location.replace("http://82.165.31.82:3000/");
                     }
                     else {
                         this.message = "Erreur lors de la création de compte. Rééssayez !!"

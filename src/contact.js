@@ -1,0 +1,48 @@
+const bcrypt = require('bcrypt');
+const {dbConfig} = require('../database/config');
+const pgp = require('pg-promise')();
+
+const dbName = process.env.DB_NAME;
+const saltRounds = 10;
+const db = pgp({ ...dbConfig, database: dbName })
+
+
+async function addContact( name, tel, id_pers) {
+  let success = false;
+  let result;
+
+  try {
+    const query = 'INSERT INTO contactsurgence(name, tel, id_pers) VALUES ($1, $2, $3) RETURNING *';
+    result = await db.none(query, [name, tel, id_pers])
+    if(result) {
+      console.log('Ajout du contact reussie'); // Affiche les données insérées
+      success = true;
+    }else{
+      console.log('Erreur lors de la  suppression');
+    }
+  } catch (error) {
+    console.error('Erreur lors de la suppression :', error);
+}
+    return {success: success, contact: result};
+}
+
+async function deleteContact(id_contact) {
+  let success = false;
+  let result;
+
+  try {
+    const query = 'DELETE FROM contactsurgence WHERE id_contact = $1 RETURNING *';
+    result = await db.one(query, [id_contact])
+    if(result) {
+      console.log('Suppression du contact reussie'); // Affiche les données insérées
+      success = true;
+    }else{
+      console.log('Erreur lors de l\' Suppression');
+    }
+  } catch (error) {
+    console.error('Erreur lors de l\'Suppression :', error);
+}
+    return {success: success, contact: result};
+}
+
+module.exports = {addContact, deleteContact};

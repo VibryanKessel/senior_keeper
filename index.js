@@ -6,7 +6,9 @@ const path = require("path");
 const createDatabase = require('./database');
 const registerUser = require('./src/register');
 const loginUser = require('./src/login');
-const axios = require("axios")
+const axios = require("axios");
+const addBracelet = require('./src/bracelet');
+const {addContact, deleteContact} = require('./src/contact');
 
 /* import express from 'express';
 import bodyParser from 'body-parser';
@@ -100,10 +102,10 @@ app.post('/register', async (req, res) => {
   const { nom, prenom, adresse, email, telephone, motdepasse } = req.body;
   const registerResult = await registerUser(nom, prenom, adresse, email, telephone, motdepasse);
   if (registerResult.success) {
-    res.set('Location', 'http://localhost:3000/login')
-    res.status(200).send('register successful');
+    res.set('Location', 'http://82.165.31.82:3000/login')
+    res.status(200).json({response :'register successful'});
   } else {
-    res.status(400).send('register failed');
+    res.status(400).json({response :'register failed'});
     console.log('register failed');
   }
 });
@@ -112,15 +114,48 @@ app.post('/login', async (req, res) => {
   const { telephone, motdepasse } = req.body;
   const loginResult = await loginUser(telephone, motdepasse);
   if (loginResult.success) {
-    req.session.telephone = telephone;
-    res.set('Location', 'http://localhost:3000/')
-    res.status(200).send('Login successful');
+    req.session.user = loginResult.user;
+    res.set('Location', 'http://82.165.31.82:3000/')
+    res.status(200).json({response :'Login successful'});
     console.log('Login successful');
   } else {
-    res.status(400).send('Login failed');
+    res.status(400).json({response :'Login failed'});
     console.log('Login failed');
   }
 });
+
+app.post('/cmdBracelet', async(req,res)=>{
+  const { id_client, date_fab, date_per, date_cmd, statut, date_liv } = req.body;
+  const cmdResult = await addBracelet(id_client, date_fab, date_per, statut, date_cmd, date_liv);
+  if (cmdResult.success) {
+    res.status(200).json({response :'order successful'});
+  } else {
+    res.status(400).json({response :'order failed'});
+    console.log('order failed');
+  }
+})
+
+app.post('/addContact', async(req,res)=>{
+  const { name, tel, id_pers } = req.body;
+  const cmdResult = await addContact(name, tel, id_pers);
+  if (cmdResult.success) {
+    res.status(200).json({response :'insertion successful'});
+  } else {
+    res.status(400).json({response :'insertion failed'});
+    console.log('insertion failed');
+  }
+})
+
+app.post('/deleteContact', async(req,res)=>{
+  const { id_contact } = req.body;
+  const cmdResult = await deleteContact(id_contact);
+  if (cmdResult.success) {
+    res.status(200).json({response :'Delete successful'});
+  } else {
+    res.status(400).json({response :'Delete failed'});
+    console.log('Delete failed');
+  }
+})
 
 async function initializeApp() {
   await createDatabase(); // Appel de la fonction de création de la base de données
