@@ -26,4 +26,13 @@ async function addBracelet( id_client, date_fab, date_per, statut, date_cmd, dat
     return {success: success, bracelet: result};
 }
 
-module.exports = addBracelet;
+async function getBracelet(id) {
+  try {
+    const query = 'SELECT * FROM bracelets WHERE id_bracelet = $1';
+    return  await db.one(query, [id])
+  } catch (error) {
+    console.error('Une erreur s\'est produite :', error);
+  }
+}
+
+module.exports = {addBracelet, getBracelet};

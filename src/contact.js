@@ -45,4 +45,15 @@ async function deleteContact(id_contact) {
     return {success: success, contact: result};
 }
 
-module.exports = {addContact, deleteContact};
+
+async function getContact(id) {
+  try {
+    const query = 'SELECT * FROM contactsurgence WHERE id_contact = $1';
+    return await db.one(query, [id])
+  } catch (error) {
+    console.error('Une erreur s\'est produite :', error);
+  }
+}
+
+
+module.exports = {addContact, deleteContact, getContact};
