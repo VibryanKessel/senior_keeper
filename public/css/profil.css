@@ -1,16 +1,16 @@
+:root {
+    --primary: rgba(134, 90, 252, 1);
+    --backgroundPrimary: rgba(133, 90, 252, 0.466);
+    --primaryButtonColor: rgb(212, 127, 70);
+}
+
 .form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    justify-self: center;
-    align-items: center;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-    height: 60vh;
-    width: 60vw;
-    color: white;
-    font-size: 24px;
-    font-family: Arial, sans-serif;
-    background-color: var(--backgroundPrimary);
+    font-size: 80%;
+    border-radius: 5rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    transition: all 0.2s;
+    position: relative;
+    margin-bottom: 1rem;     
 }
