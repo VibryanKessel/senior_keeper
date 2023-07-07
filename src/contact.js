@@ -46,10 +46,10 @@ async function deleteContact(id_contact) {
 }
 
 
-async function getContact(id) {
+async function getContact(id_pers) {
   try {
-    const query = 'SELECT * FROM contactsurgence WHERE id_contact = $1';
-    return await db.oneOrNone(query, [id])
+    const query = 'SELECT * FROM contactsurgence WHERE id_pers = $1';
+    return await db.any(query, [id_pers])
   } catch (error) {
     console.error('Une erreur s\'est produite :', error);
   }

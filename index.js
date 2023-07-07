@@ -8,8 +8,8 @@ const createDatabase = require('./database');
 const registerUser = require('./src/register');
 const loginUser = require('./src/login');
 const axios = require("axios");
-const {addBracelet, getBracelet} = require('./src/bracelet');
-const {addContact, deleteContact, getContact} = require('./src/contact');
+const { addBracelet, getBracelet } = require('./src/bracelet');
+const { addContact, deleteContact, getContact } = require('./src/contact');
 const getEvent = require('./src/event');
 
 /* import express from 'express';
@@ -47,7 +47,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   secret: generateSecretKey(),
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
 }));
 
 app.use(cors({
@@ -106,12 +106,12 @@ app.post('/alert', (req, res) => {
       from: '+15734923612',
       to: '+33662095641'
     })
-    .then(message => { 
-      res.status(200).json({message:"Alerte bien envoyée"});
+    .then(message => {
+      res.status(200).json({ message: "Alerte bien envoyée" });
     })
     .catch(err => {
       console.log(err)
-      res.status(400).json({message:"Problème lors de l'envoi de l'alerte"})
+      res.status(400).json({ message: "Problème lors de l'envoi de l'alerte" })
     })
 });
 
@@ -121,9 +121,9 @@ app.post('/register', async (req, res) => {
   const registerResult = await registerUser(nom, prenom, adresse, email, telephone, motdepasse);
   if (registerResult.success) {
     res.set('Location', 'http://localhost:3000/login')
-    res.status(200).json({response :'register successful'});
+    res.status(200).json({ response: 'register successful' });
   } else {
-    res.status(400).json({response :'register failed'});
+    res.status(400).json({ response: 'register failed' });
     console.log('register failed');
   }
 });
@@ -132,77 +132,93 @@ app.post('/login', async (req, res) => {
   const { telephone, motdepasse } = req.body;
   const loginResult = await loginUser(telephone, motdepasse);
   if (loginResult.success) {
-    req.session.user = loginResult.user;
-    sessions[req.sessionID] = req.session.user
+    //req.session.user = loginResult.user;
+    sessions[req.sessionID] = loginResult.user;
     res.set('Location', 'http://localhost:3000/site')
-    res.status(200).json({response :'Login successful'});
+    res.status(200).json({ response: 'Login successful' });
   } else {
-    res.status(400).json({response :'Login failed'});
+    res.status(400).json({ response: 'Login failed' });
     console.log('Login failed');
   }
 });
 
-app.post('/cmdBracelet', async(req,res)=>{
+app.post('/cmdBracelet', async (req, res) => {
   const { id_client, date_fab, date_per, date_cmd, statut, date_liv } = req.body;
   const cmdResult = await addBracelet(id_client, date_fab, date_per, statut, date_cmd, date_liv);
   if (cmdResult.success) {
-    res.status(200).json({response :'order successful'});
+    res.status(200).json({ response: 'order successful' });
   } else {
-    res.status(400).json({response :'order failed'});
+    res.status(400).json({ response: 'order failed' });
     console.log('order failed');
   }
 })
 
-app.post('/addContact', async(req,res)=>{
+app.post('/addContact', async (req, res) => {
   const { name, tel, id_pers } = req.body;
   const cmdResult = await addContact(name, tel, id_pers);
   if (cmdResult.success) {
-    res.status(200).json({response :'insertion successful'});
+    res.status(200).json({ response: 'insertion successful' });
   } else {
-    res.status(400).json({response :'insertion failed'});
+    res.status(400).json({ response: 'insertion failed' });
     console.log('insertion failed');
   }
 })
 
-app.post('/deleteContact', async(req,res)=>{
+app.post('/deleteContact', async (req, res) => {
   const { id_contact } = req.body;
   const cmdResult = await deleteContact(id_contact);
   if (cmdResult.success) {
-    res.status(200).json({response :'Delete successful'});
+    res.status(200).json({ response: 'Delete successful' });
   } else {
-    res.status(400).json({response :'Delete failed'});
+    res.status(400).json({ response: 'Delete failed' });
     console.log('Delete failed');
   }
 })
 
-app.post('/getContact', async(req,res)=>{
-  const { id_contact } = req.body;
-  const result = await getContact(id_contact);
-  if (result) {
-    res.status(200).json(result)
-  } else {
-    res.status(400).json({message: 'Something went wrong'});
+app.get('/getContact', async (req, res) => {
+  
+  if (sessions[req.sessionID] != null) {
+    const result = await getContact(sessions[req.sessionID].id_pers);
+    if (result) {
+      res.status(200).json(result)
+    } else {
+      res.status(400).json({ message: 'Something went wrong' });
+    }
+  }
+  else {
+    res.status(401).redirect("/login")
   }
 })
 
-app.post('/getBracelet', async(req,res)=>{
-  const { id_bracelet } = req.body;
-  const result = await getBracelet(id_bracelet);
-  if (result) {
-    res.status(200).json(result)
-  } else {
-    res.status(400).json({message: 'Something went wrong'});
+app.get('/getBracelet', async (req, res) => {
+  
+  if (sessions[req.sessionID] != null) {
+    const result = await getBracelet(sessions[req.sessionID].id_pers);
+    if (result) {
+      res.status(200).json(result)
+    } else {
+      res.status(400).json({ message: 'Something went wrong' });
+    }
+  }
+  else {
+    res.status(401).redirect("/login")
   }
 })
 
-app.post('/getEvent', async(req,res)=>{
-  const { id_event } = req.body;
-  const result = await getEvent(id_event);
-  if (result) {
-    res.status(200).json(result)
-  } else {
-    res.status(400).json({message: 'Something went wrong'});
+app.get('/getEvent', async (req, res) => {
+
+  if (sessions[req.sessionID] != null) {
+    const result = await getEvent(sessions[req.sessionID].id_pers);
+    if (result) {
+      res.status(200).json(result)
+    } else {
+      res.status(400).json({ message: 'Something went wrong' });
+    }
   }
+  else {
+    res.status(401).redirect("/login")
+  }
+
 })
 
 async function initializeApp() {

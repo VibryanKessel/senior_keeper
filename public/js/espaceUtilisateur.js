@@ -134,32 +134,7 @@ Vue.component('mesbracelets',{
     `,
     data(){
         return {
-            data : [
-                {
-                    braceletName:'Bracelet 1',
-                    status:"Actif",
-                    lastFall: new Date("2/12/2000"),
-                    acquisitionDate: new Date("2/12/2000"),
-                    possessor: "Pierre Dubois"
-
-                },
-                {
-                    braceletName:'Bracelet 2',
-                    isActive:true,
-                    lastFall:new Date("2/12/2000"),
-                    acquisitionDate: new Date("2/12/2000"),
-                    possessor: "Marie Dubois"
-
-                },
-                {
-                    braceletName:'Bracelet 3',
-                    isActive: true,
-                    lastFall: new Date("2/12/2000"),
-                    acquisitionDate: new Date("2/12/2000"),
-                    possessor: "Hermann Dubois"
-
-                }
-            ]
+            data : null
         }
     }
 
@@ -178,6 +153,8 @@ var app = new Vue({
         message: null
     },
     methods: {
-      
+        getBracelets(){
+            
+        }
     }
 });
