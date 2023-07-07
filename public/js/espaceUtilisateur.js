@@ -62,7 +62,7 @@ Vue.component('accordion-item', {
             </div>
             <div v-else-if="accordionScreen === 'chutes'" class = "py-1 px-2 bg-gray-100 rounded-b-lg">
                 <div class="flex flex-col gap-7">
-                    <div v-for = "(item, index) in filterChutes(bracelet.id_brac)" key="item.id" class="flex flex-col items-center border border-black">
+                    <div v-for = "(item, index) in filterChutes()" key="item.id" class="flex flex-col items-center border border-black">
                         <br>
 
                         <p class="text-xl">Chute {{index+1}}</p>
@@ -104,8 +104,7 @@ Vue.component('accordion-item', {
       screenButtonClick(screen){
         this.accordionScreen = screen
       },
-      filterChutes(id_brac){
-        console.log(id_brac)
+      filterChutes(){
         console.log(this.bracelet)
         const res = this.chutes.filter(c => c.id_brac == id_brac)
         console.log(res)
