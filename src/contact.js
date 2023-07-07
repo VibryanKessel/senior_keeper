@@ -12,14 +12,12 @@ async function addContact( name, tel, id_pers) {
   let result;
 
   try {
-    const query = 'INSERT INTO contactsurgence(name, tel, id_pers) VALUES ($1, $2, $3) RETURNING *';
+    const query = 'INSERT INTO contactsurgence(name, tel, id_pers) VALUES ($1, $2, $3)';
     result = await db.none(query, [name, tel, id_pers])
-    if(result) {
-      console.log('Ajout du contact reussie'); // Affiche les données insérées
-      success = true;
-    }else{
-      console.log('Erreur lors de la  suppression');
-    }
+    
+    console.log('Ajout du contact reussie'); // Affiche les données insérées
+    success = true;
+    
   } catch (error) {
     console.error('Erreur lors de la suppression :', error);
 }

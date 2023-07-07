@@ -14,72 +14,112 @@
         <div class="flex flex-col items-center">
             <img src="http://localhost:3000/site/img/profil.png" class="w-40 flex items-center justify-center" alt=""
               srcset="">
-            <p class="text-2xl" target="_blank" rel="noopener noreferrer">{{userData.prenom}} {{userData.nom}}</p>
+            <p class="text-2xl">{{userData.prenom}} {{userData.nom}}</p>
         </div>
 
-        <p class="text-4xl space-y-12"> Profil utilisateur</p>
         <div>
-            <div v-if = "profilScreen == 'commands'">
-                <p> Liste de vos commandes de bracelets </p>
-                
-                <div>
-                    <div v-for = "item in commands" key="item.id">
+
+            <div v-if = "profilScreen == 'modify'" class="flex flex-col justify-center">
+                <p class="text-4xl space-y-12">Modifier vos informations personnelles</p>
+                <form class="form">
+                    <div class="mb-6">
+                        <label for="nom" class="block mb-2 text-xl font-medium text-black ">Nom</label>
+                        <input v-model="formModification.nom" type="text" id="nom"
+                            class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="prenom" class="block text-xl mb-2 text-sm font-medium text-gray-900">Prénom</label>
+                        <input v-model="formModification.prenom" type="text" id="prenom"
+                            class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="adresse" class="block text-xl mb-2 text-sm font-medium text-gray-900">Adresse</label>
+                        <input v-model="formModification.adresse" type="text" id="adresse"
+                            class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            required>
+                    </div>
+
+                    <button class="text-xl text-white px-3 py-4 bg-purple-800" > Valider </button>
+                </form>
+                <button @click = "screenButtonClick('')" class="text-xl w-1/2 rounded px-3 py-4 rounded  border border-black"> Retour </button>
+            </div>
+            
+
+
+            <div v-else-if = "profilScreen == 'contacts'" class="flex flex-col gap-7">
+                <p class="text-4xl space-y-12">Gestion des contacts d'urgence</p>
+                <button @click = "screenButtonClick('addContact')" class="text-xl text-white px-3 py-4 bg-yellow-600"> Ajout de contacts </button>
+                <div v-for = "item in contacts" key="item.id" class="flex flex-col gap-3 items-center justify-center flex border border-black">
+                    <br>    
+                    <p class="text-xl">{{item.name}}</p>
+                    <p>Numéro de téléphone : +33 {{item.tel}}</p>
+                    <button @click = "deleteContacts(item.id_contact)" class="text-xl w-1/4 text-white px-3 py-4 bg-red-700 items-center">Supprimer</button>
+                    <br>
+                </div>
+                <button @click = "screenButtonClick('')" class="text-xl w-1/2 rounded px-3 py-4 rounded  border border-black"> Retour </button>
+            </div>
+
+
+            <div v-else-if = "profilScreen == 'addContact'">
+                <p class="text-4xl space-y-12">Ajouter un contact d'urgence</p>
+                <form class="form">
+                    <div class="mb-6">
+                        <label for="name" class="block text-xl mb-2 text-sm font-medium text-gray-900">Nom du contact</label>
+                        <input v-model="formContact.name" type="text" id="name"
+                            class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="tel" class="block text-xl mb-2 text-sm font-medium text-gray-900">Numéro de téléphone</label>
+                        <input v-model="formContact.tel" type="text" id="tel"
+                            class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            required>
+                    </div>
+                    <button @click = "addContacts" class="text-xl text-white px-3 py-4 bg-purple-800"> Ajouter </button>
+                </form>
+                <button @click = "screenButtonClick('contacts')" class="text-xl w-1/2 rounded px-3 py-4 rounded  border border-black"> Retour </button>
+            </div>
+
+
+            <div v-else-if = "profilScreen == 'commands'">
+                <p class="text-4xl my-5">Liste de vos commandes de bracelets</p>
+                <div class="flex flex-col gap-7">
+                    <button @click = "screenButtonClick('addBracelet')" class="text-xl text-white px-3 py-4 bg-yellow-600"> Commander un nouveau bracelet </button>
+                    <div v-for = "item in commands" key="item.id" class="flex flex-col items-center border border-black">
                         <br>    
-                        {{item.nomBracelet}}
-                        <p>Date de la commande : {{item.date_cmd}}</p>
-                        <p>Date de la livraison : {{item.date_liv}}</p>
+                        <p class="text-xl">{{item.nomBracelet}}</p>
+                        <p>Date de la commande : {{commandDateStringFormat(item)}}</p>
+                        <p>Date de fin de préparation : {{preperationDateStringFormat(item)}}</p>
+                        <p>Date de la livraison : {{deliveryDateStringFormat(item)}}</p>
                         <br>
                     </div>
                 </div>
 
-                <button @click = "screenButtonClick('')"> Retour </button>
+                <button @click = "screenButtonClick('')" class="text-xl w-1/2 rounded px-3 py-4 rounded  border border-black"> Retour </button>
             </div>
 
-
-            <div v-else-if = "profilScreen == 'modify'">
-                <p> Modifier vos informations personnelles </p>
+            <div v-else-if = "profilScreen == 'addBracelet'">
+                <p class="text-4xl space-y-12">Commander un bracelet</p>
                 <form class="form">
                     <div class="mb-6">
-                        <label for="nom" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
-                        <input v-model="form.nom" type="nom" id="nom"
+                        <label for="name" class="block text-xl mb-2 text-sm font-medium text-gray-900">Nom du bracelet</label>
+                        <input v-model="formBracelet.nomBracelet" type="text" id="name"
                             class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required>
                     </div>
-                    <div class="mb-6">
-                        <label for="prenom" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Prénom</label>
-                        <input v-model="form.prenom" type="prenom" id="prenom"
-                            class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            required>
-                    </div>
-                    <div class="mb-6">
-                        <label for="adresse" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Adresse</label>
-                        <input v-model="form.adress" type="adresse" id="adresse"
-                            class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            required>
-                    </div>
+                    <button @click = "addCommand" class="text-xl text-white px-3 py-4 bg-purple-800"> Passer la commande du bracelet </button>
                 </form>
-                <button @click = "screenButtonClick('')"> Retour </button>
+                <button @click = "screenButtonClick('commands')" class="text-xl w-1/2 rounded px-3 py-4 rounded border border-black"> Retour </button>
             </div>
 
 
-
-            <div v-else-if = "profilScreen == 'contacts'">
-                <p> Gestion des contacts d'urgence </p>
-                <div v-for = "item in contacts" key="item.id">
-                    <br>    
-                    {{item.nom}}
-                    <p>Numéro de téléphone : {{item.tel}}</p>
-                    <button>Supprimer</button>
-                    <br>
-                </div>
-                <button @click = "screenButtonClick('')"> Retour </button>
-            </div>
-
-
-            <div v-else class="menu2">
-                <button @click = "screenButtonClick('modify')"> Modifier mes infos personnelles</button>
-                <button @click = "screenButtonClick('contacts')"> Gérer mes contacts d'urgence </button>
-                <button @click = "screenButtonClick('commands')"> Voir mes commandes </button>
+            <div v-else class="menu2 flex gap-12">
+                <p class="text-4xl space-x-12"> Profil utilisateur</p>
+                <button @click = "screenButtonClick('modify')" class="text-xl text-white px-3 py-4 bg-purple-800"> Modifier mes infos personnelles</button>
+                <button @click = "screenButtonClick('contacts')" class="text-xl text-white px-3 py-4 bg-purple-800"> Gérer mes contacts d'urgence </button>
+                <button @click = "screenButtonClick('commands')" class="text-xl text-white px-3 py-4 bg-purple-800"> Voir mes commandes </button>
             </div>
         </div>
     </div> <!-- Vue app -->

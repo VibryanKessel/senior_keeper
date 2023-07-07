@@ -139,8 +139,6 @@ Vue.component('mesbracelets',{
             axios.get("http://localhost:3000/getBracelet")
             .then(res => {
                 this.data = res.data
-
-                console.log(this.data)
             })
             .catch(err =>{
                 console.log(err)
