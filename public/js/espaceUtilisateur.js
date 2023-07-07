@@ -105,8 +105,7 @@ Vue.component('accordion-item', {
         this.accordionScreen = screen
       },
       filterChutes(){
-        console.log(this.bracelet)
-        const res = this.chutes.filter(c => c.id_brac == id_brac)
+        const res = this.chutes.filter(c => c.id_bracelet == this.bracelet.id_bracelet)
         console.log(res)
         
         return res
