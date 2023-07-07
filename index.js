@@ -12,18 +12,6 @@ const { addBracelet, getBracelet } = require('./src/bracelet');
 const { addContact, deleteContact, getContact } = require('./src/contact');
 const getEvent = require('./src/event');
 
-/* import express from 'express';
-import bodyParser from 'body-parser';
-import crypto from 'crypto';
-import session from 'express-session';
-import path from 'path';
-import fetch from "node-fetch"
-
-import createDatabase from './database';
-import registerUser from './src/register';
-import loginUser from './src/login';
-import axios from 'axios';
- */
 
 const sessions = {}
 
@@ -36,17 +24,12 @@ const generateSecretKey = () => {
   return buffer.toString('hex');
 };
 
-/* const accountSid = 'AC39f73d3452ca8b401929668fdb996099';
-const authToken = 'a64bdf29f5bd262e533c6c5a75086d55';
-
-const twillioClient = require('twilio')(accountSid, authToken); */
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   secret: generateSecretKey(),
-  resave: false,
+  resave: true,
   saveUninitialized: true,
 }));
 
@@ -70,7 +53,6 @@ app.get('/', (req, res) => {
 })
 
 
-
 app.get('/espaceUtilisateur', (req, res) => {
   if (sessions[req.sessionID] != null) {
     res.status(200).redirect("/site/html/espaceUtilisateur.html");
@@ -85,6 +67,15 @@ app.get('/who', (req, res) => {
     res.status(400).redirect('/login');
   }
 });
+
+app.get('/profil', (req, res) => {
+  if (sessions[req.sessionID] != null) {
+    res.status(200).redirect("/site/html/profil.html");
+  } else {
+    res.redirect('/login');
+  }
+})
+
 
 app.get('/logout', (req, res) => {
   req.session.destroy();

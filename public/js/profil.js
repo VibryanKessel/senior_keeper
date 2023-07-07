@@ -1,9 +1,8 @@
 var app = new Vue({
     el: '#app',
     data: {
-        nom: "Dubois",
-        prenom: "Alex",
-        adress:"60 Rue de la République, 95000",
+        userData : null,
+        form : null,
         profilScreen: "",
         contacts: [
             { nom: "Clara", tel: "0707333535" }, 
@@ -22,9 +21,23 @@ var app = new Vue({
             }
         ]
     },
+    mounted(){
+        this.getSessionData()
+        console.log(this.userData)
+    },
     methods: {
-        screenButtonClick(screen) {
-            this.profilScreen = screen
+        getSessionData(){
+            axios.get("http://localhost:3000/who")
+            .then(res => {
+                this.userData = res.data
+                this.form = res.data
+            })
+            .catch(err =>{
+                console.log(err)
+            })
         },
+        screenButtonClick(screen){
+            this.accordionScreen = screen
+        }
     }
 });

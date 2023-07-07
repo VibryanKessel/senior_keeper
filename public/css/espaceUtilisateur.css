@@ -75,7 +75,7 @@
     transition: background-color 0.3s ease;
   }
   
-  .accordion{
+/*   .accordion{
     background-color: #e6e6e6;
     max-height: 0;
     overflow: hidden;
@@ -84,7 +84,6 @@
     transition: max-height 0.3s ease;
     margin-right: 10px;
     transition: transform 0.3s ease;
-    transform: rotate(180deg);
   }
-
+ */
   
