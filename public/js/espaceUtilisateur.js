@@ -81,7 +81,7 @@ Vue.component('accordion-item', {
     computed : {
         acquisitionDateStringFormat() {
             date = new Date(this.bracelet.date_liv)
-            return date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear()
+            return date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()
         }
     },
     methods : {
@@ -159,7 +159,6 @@ var app = new Vue({
     },
     mounted(){
         this.getSessionData()
-        this.getBracelets()
     },
     methods: {
         getSessionData(){

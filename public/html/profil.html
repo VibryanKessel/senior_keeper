@@ -10,16 +10,15 @@
 </head>
 
 <body class="body">
-    <div id="app" class="flex flex-col items-center justify-center my-12 space-y-96"> <!-- Vue app -->
+    <div id="app" class="flex flex-col items-center justify-center my-12 space-y-40"> <!-- Vue app -->
         <div class="flex flex-col items-center">
             <img src="http://localhost:3000/site/img/profil.png" class="w-40 flex items-center justify-center" alt=""
               srcset="">
-            <p class="text-2xl" target="_blank" rel="noopener noreferrer">{{prenom}} {{nom}}</p>
+            <p class="text-2xl" target="_blank" rel="noopener noreferrer">{{userData.prenom}} {{userData.nom}}</p>
         </div>
 
+        <p class="text-4xl space-y-12"> Profil utilisateur</p>
         <div>
-
-            
             <div v-if = "profilScreen == 'commands'">
                 <p> Liste de vos commandes de bracelets </p>
                 
@@ -42,19 +41,19 @@
                 <form class="form">
                     <div class="mb-6">
                         <label for="nom" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
-                        <input v-model="nom" type="nom" id="nom"
+                        <input v-model="form.nom" type="nom" id="nom"
                             class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required>
                     </div>
                     <div class="mb-6">
                         <label for="prenom" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Prénom</label>
-                        <input v-model="prenom" type="prenom" id="prenom"
+                        <input v-model="form.prenom" type="prenom" id="prenom"
                             class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required>
                     </div>
                     <div class="mb-6">
                         <label for="adresse" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Adresse</label>
-                        <input v-model="adress" type="adresse" id="adresse"
+                        <input v-model="form.adress" type="adresse" id="adresse"
                             class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required>
                     </div>
@@ -78,7 +77,6 @@
 
 
             <div v-else class="menu2">
-                <p> Menu </p>
                 <button @click = "screenButtonClick('modify')"> Modifier mes infos personnelles</button>
                 <button @click = "screenButtonClick('contacts')"> Gérer mes contacts d'urgence </button>
                 <button @click = "screenButtonClick('commands')"> Voir mes commandes </button>
