@@ -106,6 +106,7 @@ Vue.component('accordion-item', {
       },
       filterChutes(id_brac){
         console.log(id_brac)
+        console.log(this.bracelet)
         const res = this.chutes.filter(c => c.id_brac == id_brac)
         console.log(res)
         
