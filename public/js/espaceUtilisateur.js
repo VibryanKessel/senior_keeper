@@ -1,70 +1,69 @@
 Vue.component('accordion-item', {
     template: `
-      <div class ="accordion w-full">
-        <div @click="toggle" class = "flex flex-row w-1/2 p-2 bg-gray-200 border-t-2 border-gray-400 rounded-b-lg" >
-            <div class = "flex flex-col items-center justify-center">
+      <div class ="accordion w-full cursor-default">
+        <div @click="toggle" class = "flex p-2 bg-gray-200 border-t-2 border-gray-400 rounded-b-lg" >
+            <div :class = "['flex items-center text-3xl justify-between w-full',{'font-bold': isOpen}]">
                 <div>
                     {{bracelet.nomBracelet}}
                 </div>
-                <div>
-                    {{acquisitionDateStringFormat}}
+                <div class="flex gap-10">
+                    <span>{{acquisitionDateStringFormat}}</span>
+                    <span>{{isOpen?"v":">"}}</span>
                 </div>
             </div>
             <div class = "flex flex-col items-center justify-center" >
                 <div>{{bracelet.status}}</div>
             </div>
         </div>
-        <div v-show="isOpen" class = "w-1/2 p-2 bg-white-200 border-t-2 border-gray-400 rounded-b-lg" >
+        <div v-show="isOpen" class = "py-1 px-2 rounded-b-lg" >
             <div class = "accordion__title" v-if="accordionScreen === 'modify'">
-                <p class="text-2xl flex items-center justify-center"> Modifier informations du bracelet </p>
                 
-                <form class="form">
-                    <div>
-                        <label for="nomBracelet" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom du bracelet</label>
-                        <input v-model="nomBraceletForm" type="text" id="nomBracelet"
+                <form class="form flex flex-col bg-gray-100 gap-5 py-5 px-2">
+                    <fieldset class="flex flex-col gap-3">
+                        <legend class="text-2xl text-center py-5">Modifier les informations du bracelet </legend>      
+                        <label for="nomBracelet" class="text-2xl font-medium text-gray-900">Nom du bracelet</label>
+                        <input class="h-16 px-6 border text-2xl" v-model="nomBraceletForm" type="text" id="nomBracelet"
                             placeholder=" Bracelet de Marguerite" required>
-                    </div>
-                    <button @click="submitModificationForm" class="p-button ">
-                        Valider
-                    </button>
+                        <button @click="submitModificationForm" class="p-button text-2xl text-white rounded font-bold px-3 py-4 bg-purple-800">
+                            Valider
+                        </button>
+                    </fieldset>
                 </form>
 
-                <button @click="screenButtonClick(null)" class = "" > Retour </button>
+                <button @click="screenButtonClick(null)" class = "text-2xl" > Retour </button>
             </div>
-            <div v-else-if="accordionScreen === 'report'">
-                <p class="text-2xl flex items-center justify-center"> Signaler un problème sur ce bracelet </p>
-                
-                <form class="form">
-                    <div>
-                        <label for="messageReport" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Message</label>
-                        <textarea v-model="message" id="messageReport" required></textarea>
-                    </div>
-                    <button type="submit" class="p-button ">
-                        Valider
-                    </button>
+            <div v-else-if="accordionScreen === 'report'" class = "py-1 px-2 bg-gray-100 rounded-b-lg">
+                <form class="form flex flex-col gap-5 py-5 px-2">
+                    <fieldset class="flex flex-col gap-3">
+                        <legend class="text-2xl text-center py-5">Signaler un probleme </legend>      
+                        <label for="nomBracelet" class="text-2xl font-medium text-gray-900">Message</label>
+                        <textarea class="h-16 px-6 border text-2xl flex items-center"  v-model="message" id="nomBracelet" placeholder=" Bracelet de Marguerite" required></textarea>
+                        <button @click="submitModificationForm" class="p-button text-2xl text-white rounded font-bold px-3 py-4 bg-purple-800">
+                            Valider
+                        </button>
+                    </fieldset>
                 </form>
-                
-                <button @click="screenButtonClick(null)" class = "" > Retour </button>
+
+            <button @click="screenButtonClick(null)" class = "text-2xl font-semibold" > Retour </button>
             </div>
-            <div v-else-if="accordionScreen === 'replace'">
-                <p class="text-2xl flex items-center justify-center"> Remplacer ce bracelet </p>
-                
-                <form class="form">
-                    <div>
-                        <label for="raison" class="block text-xl mb-2 text-sm font-medium text-gray-900 dark:text-white">Raison du changement</label>
-                        <input v-model="raison" type="text" id="raison"required>
-                    </div>
-                    <button @click="" class="p-button">
-                        Valider
-                    </button>
-                </form>
-                
-                <button @click="screenButtonClick(null)" class = "" > Retour </button>
+            <div v-else-if="accordionScreen === 'replace'" class = "py-1 px-2 bg-gray-100 rounded-b-lg">
+                <form class="form flex flex-col gap-5 py-5 px-2">
+                    <fieldset class="flex flex-col gap-3">
+                        <legend class="text-2xl text-center py-5">Remplacer ce bracelet </legend>      
+                        <label for="nomBracelet" class="text-2xl font-medium text-gray-900">Raison du changement</label>
+                        <input class="h-5 w-2/3" v-model="raison" type="text" class="h-16 px-6 border text-2xl"  id="raison"required>
+                        <button @click="submitModificationForm" class="p-button text-2xl text-white rounded font-bold px-3 py-4 bg-purple-800">
+                            Valider
+                        </button>
+                    </fieldset>
+                </form>    
+        
+                <button @click="screenButtonClick(null)" class = "text-2xl font-semibold" > Retour </button>
             </div>
-            <div v-else>
-                <button @click="screenButtonClick('modify')" class = ""> Modifier les informations du bracelet</button>
-                <button @click="screenButtonClick('report')" class = "">Signaler un problème</button>
-                <button @click="screenButtonClick('replace')" class = "">Remplacer bracelet</button>
+            <div v-else class="flex gap-10 w-full">
+                <button @click="screenButtonClick('modify')" class = " hover:underline text-2xl text-purple-800 font-semibold"> Modifier les informations du bracelet</button>
+                <button @click="screenButtonClick('report')" class = " hover:underline text-2xl text-purple-800 font-semibold">Signaler un problème</button>
+                <button @click="screenButtonClick('replace')" class = " hover:underline text-2xl text-purple-800 font-semibold">Remplacer bracelet</button>
             </div>
         </div>
       </div>
@@ -105,7 +104,7 @@ Vue.component('accordion-item', {
 
 Vue.component('accordion', {
     template: `
-      <div class = "w-1/2">
+      <div class = "w-full hover:font-bold">
         <slot></slot>
       </div>
     `
@@ -114,10 +113,10 @@ Vue.component('accordion', {
 
 Vue.component('mesbracelets',{
     template : `
-        <div class = "flex flex-col gap-20 items-center"> 
-            <p class="text-5xl flex items-center font-bold justify-center"> Liste de vos bracelets </p>
-            <div >
-                <div v-for="item in data" >
+        <div class = "w-5/6"> 
+            <p class="py-5 text-5xl font-bold text-center"> Liste de vos bracelets </p>
+            <div class="">
+                <div v-for="item in data" class="w-full">
                     <accordion>
                         <accordion-item :bracelet = "item" class = "bg-white-200">        
                         <accordion-item>

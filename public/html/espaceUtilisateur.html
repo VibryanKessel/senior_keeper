@@ -14,7 +14,7 @@
         <img src="http://localhost:3000/site/img/logo.png" alt="" srcset="">
     </div> -->
   <div id="app" class="m-0 p-0">
-    <div class="w-full flex justify-between items-center px-10">
+    <div class="w-full flex justify-between items-center px-10 py-2 border-b">
       <div class="flex flex-col items-center px-5">
         <img src="http://localhost:3000/site/img/profil.png" class="w-40" alt="LOGO SENIOR KEEPER"
           srcset="">
@@ -22,9 +22,13 @@
       </div>  
       <div class="text-5xl flex items-center justify-center"> Bonjour, {{userData.prenom}} {{userData.nom}}</div>
     </div>
-
-    <div class="w-full">
-      <mesbracelets></mesbracelets>
+    <div class="w-full flex flex-col justify-center gap-3">
+      <div class="w-full overflow-auto max-h-[500px] flex justify-center">
+        <mesbracelets></mesbracelets>
+      </div>
+      <button class="p-button self-center w-1/4 text-white text-2xl rounded font-bold px-3 py-4 bg-yellow-700">
+        Passer une commande
+      </button>
     </div>
 
   </div> <!-- Vue app -->
