@@ -23,10 +23,24 @@
       <div class="text-5xl flex items-center justify-center"> Bonjour, {{userData.prenom}} {{userData.nom}}</div>
     </div>
     <div class="w-full flex flex-col justify-center gap-3">
-      <div class="w-full overflow-auto max-h-[500px] flex justify-center">
+      <div  v-if="screen == 'command'">
+        <p class="text-4xl space-y-12">Commander un bracelet</p>
+        <form class="form">
+            <div class="mb-6">
+                <label for="name" class="block text-xl mb-2 text-sm font-medium text-gray-900">Nom du bracelet</label>
+                <input v-model="formBracelet.nomBracelet" type="text" id="name"
+                    class="shadow appearance-none border rounded rounded-lg w-full my-2 mx-3 py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    required>
+            </div>
+            <button @click = "addCommand" class="text-xl self-center text-white px-3 py-4 bg-purple-800"> Passer la commande du bracelet </button>
+        </form>
+        <button @click = "screenButtonClick('')" class="text-xl w-1/4 rounded px-3 py-4 rounded border border-black"> Retour </button>
+      </div>
+      
+      <div v-else class="w-full overflow-auto max-h-[500px] flex justify-center">
         <mesbracelets></mesbracelets>
       </div>
-      <button class="p-button self-center w-1/4 text-white text-2xl rounded font-bold px-3 py-4 bg-yellow-700">
+      <button @click = "screenButtonClick('command')" class="p-button rounded-xl self-center w-1/4 text-white text-2xl font-bold px-3 py-4 bg-yellow-700">
         Passer une commande
       </button>
     </div>

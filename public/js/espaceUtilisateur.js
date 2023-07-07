@@ -60,10 +60,25 @@ Vue.component('accordion-item', {
         
                 <button @click="screenButtonClick(null)" class = "text-2xl font-semibold" > Retour </button>
             </div>
+            <div v-else-if="accordionScreen === 'chutes'" class = "py-1 px-2 bg-gray-100 rounded-b-lg">
+                <div class="flex flex-col gap-7">
+                    <div v-for = "item in chutes" key="item.id" class="flex flex-col items-center border border-black">
+                        <br>    
+                        <p class="text-xl">{{item.nomBracelet}}</p>
+                        <p>Date de la commande : {{commandDateStringFormat(item)}}</p>
+                        <p>Date de fin de préparation : {{preperationDateStringFormat(item)}}</p>
+                        <p>Date de la livraison : {{deliveryDateStringFormat(item)}}</p>
+                        <br>
+                    </div>
+                </div>
+
+            <button @click="screenButtonClick(null)" class = "text-2xl font-semibold" > Retour </button>
+            </div>
             <div v-else class="flex gap-10 w-full">
                 <button @click="screenButtonClick('modify')" class = " hover:underline text-2xl text-purple-800 font-semibold"> Modifier les informations du bracelet</button>
                 <button @click="screenButtonClick('report')" class = " hover:underline text-2xl text-purple-800 font-semibold">Signaler un problème</button>
                 <button @click="screenButtonClick('replace')" class = " hover:underline text-2xl text-purple-800 font-semibold">Remplacer bracelet</button>
+                <button @click="screenButtonClick('chutes')" class = " hover:underline text-2xl text-purple-800 font-semibold">Voir l'historique des chutes</button>
             </div>
         </div>
       </div>
@@ -74,7 +89,8 @@ Vue.component('accordion-item', {
         accordionScreen : null,
         nomBraceletForm : this.bracelet.nomBracelet,
         message : "",
-        raison :""
+        raison :"",
+        chutes:[]
       };
     },
     computed : {
@@ -152,7 +168,11 @@ var app = new Vue({
     el: '#app',
     data: {
         userData:null,
-        message: null
+        message: null,
+        screen:"",
+        formBracelet:{
+            nomBracelet:"",
+        },
     },
     mounted(){
         this.getSessionData()
@@ -162,6 +182,22 @@ var app = new Vue({
             axios.get("http://localhost:3000/who")
             .then(res => {
                 this.userData = res.data
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+        },
+        screenButtonClick(screen){
+            this.screen = screen
+        },
+        addCommand(e){
+            e.preventDefault();            
+
+            axios.post("http://localhost:3000/cmdBracelet",{
+                nomBracelet : this.formBracelet.nomBracelet,
+            })
+            .then(res => {
+                this.screen = ''
             })
             .catch(err =>{
                 console.log(err)
