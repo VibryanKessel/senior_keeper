@@ -114,14 +114,16 @@ Vue.component('accordion', {
 
 Vue.component('mesbracelets',{
     template : `
-        <div class = "flex flex-col space-y-64 items-center bg-green"> 
-            <p class="text-5xl flex items-center justify-center"> Liste de vos bracelets </p>
-            <div v-for="item in data" >
-                <accordion>
-                    <accordion-item :bracelet = "item" class = "bg-white-200">        
-                    <accordion-item>
-                </accordion>
-            </div> 
+        <div class = "flex flex-col gap-20 items-center"> 
+            <p class="text-5xl flex items-center font-bold justify-center"> Liste de vos bracelets </p>
+            <div >
+                <div v-for="item in data" >
+                    <accordion>
+                        <accordion-item :bracelet = "item" class = "bg-white-200">        
+                        <accordion-item>
+                    </accordion>
+                </div>
+            </div>
         </div>
     `,
     mounted(){

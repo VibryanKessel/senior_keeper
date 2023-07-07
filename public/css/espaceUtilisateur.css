@@ -61,7 +61,7 @@
 }
 
 /* Styles pour l'accordéon */
-.accordion {
+/* .accordion {
     width: 100%;
   }
   
@@ -73,9 +73,9 @@
     margin-bottom: 1px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
+  } */
   
-  .accordion{
+/*   .accordion{
     background-color: #e6e6e6;
     max-height: 0;
     overflow: hidden;
@@ -85,6 +85,6 @@
     margin-right: 10px;
     transition: transform 0.3s ease;
     transform: rotate(180deg);
-  }
+  } */
 
   
