@@ -78,13 +78,13 @@ app.get('/espaceUtilisateur', (req, res) => {
     res.redirect('/login');
   }
 })
-// app.get('/login', (req, res) => {e
-//   res.sendFile(path.resolve('./public/html/login.html'));
-// });
-
-// app.get('/register', (req, res) => {
-//   res.sendFile(path.resolve('./html/register.html'));
-// });
+app.get('/who', (req, res) => {
+  if (sessions[req.sessionID] != null) {
+    res.status(200).json(sessions[req.sessionID]);
+  } else {
+    res.status(400).redirect('/login');
+  }
+});
 
 app.get('/logout', (req, res) => {
   req.session.destroy();

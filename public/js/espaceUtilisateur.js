@@ -4,10 +4,7 @@ Vue.component('accordion-item', {
         <div @click="toggle" class = "flex flex-row w-1/2 p-2 bg-gray-200 border-t-2 border-gray-400 rounded-b-lg" >
             <div class = "flex flex-col items-center justify-center">
                 <div>
-                    {{bracelet.braceletName}}
-                </div>
-                <div>
-                    {{bracelet.possessor}}
+                    {{bracelet.nomBracelet}}
                 </div>
                 <div>
                     {{acquisitionDateStringFormat}}
@@ -15,7 +12,6 @@ Vue.component('accordion-item', {
             </div>
             <div class = "flex flex-col items-center justify-center" >
                 <div>{{bracelet.status}}</div>
-                <div>{{lastFallStringFormat}}</div>
             </div>
         </div>
         <div v-show="isOpen" class = "w-1/2 p-2 bg-white-200 border-t-2 border-gray-400 rounded-b-lg" >
@@ -77,18 +73,15 @@ Vue.component('accordion-item', {
       return {
         isOpen: false,
         accordionScreen : null,
-        nomBraceletForm : this.bracelet.braceletName,
-        possesseurForm : this.bracelet.possessor,
+        nomBraceletForm : this.bracelet.nomBracelet,
         message : "",
         raison :""
       };
     },
     computed : {
-        lastFallStringFormat(){
-            return this.bracelet.lastFall.getDate()+"/"+this.bracelet.lastFall.getMonth()+"/"+this.bracelet.lastFall.getFullYear()
-        },
         acquisitionDateStringFormat() {
-            return this.bracelet.acquisitionDate.getDate()+"/"+this.bracelet.acquisitionDate.getMonth()+"/"+this.bracelet.acquisitionDate.getFullYear()
+            date = new Date(this.bracelet.date_liv)
+            return date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear()
         }
     },
     methods : {
@@ -125,36 +118,56 @@ Vue.component('mesbracelets',{
             <p class="text-5xl flex items-center justify-center"> Liste de vos bracelets </p>
             <div v-for="item in data" >
                 <accordion>
-                    <accordion-item :bracelet = "item" class = "bg-white-200">
-                        
+                    <accordion-item :bracelet = "item" class = "bg-white-200">        
                     <accordion-item>
                 </accordion>
             </div> 
         </div>
     `,
+    mounted(){
+        this.getBracelets()
+    },
     data(){
         return {
             data : null
+        }
+    },
+    methods : {
+        getBracelets(){
+            axios.get("http://localhost:3000/getBracelet")
+            .then(res => {
+                this.data = res.data
+
+                console.log(this.data)
+            })
+            .catch(err =>{
+                console.log(err)
+            })
         }
     }
 
 })
 
 
-
-
 var app = new Vue({
     el: '#app',
     data: {
-        nom: "Dubois",
-        prenom: "Alex",
-        tel: null,
-        mdp: null,
+        userData:null,
         message: null
     },
+    mounted(){
+        this.getSessionData()
+        this.getBracelets()
+    },
     methods: {
-        getBracelets(){
-            
+        getSessionData(){
+            axios.get("http://localhost:3000/who")
+            .then(res => {
+                this.userData = res.data
+            })
+            .catch(err =>{
+                console.log(err)
+            })
         }
     }
 });
