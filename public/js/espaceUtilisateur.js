@@ -62,12 +62,11 @@ Vue.component('accordion-item', {
             </div>
             <div v-else-if="accordionScreen === 'chutes'" class = "py-1 px-2 bg-gray-100 rounded-b-lg">
                 <div class="flex flex-col gap-7">
-                    <div v-for = "item in chutes" key="item.id" class="flex flex-col items-center border border-black">
-                        <br>    
-                        <p class="text-xl">{{item.nomBracelet}}</p>
-                        <p>Date de la commande : {{commandDateStringFormat(item)}}</p>
-                        <p>Date de fin de préparation : {{preperationDateStringFormat(item)}}</p>
-                        <p>Date de la livraison : {{deliveryDateStringFormat(item)}}</p>
+                    <div v-for = "(item, index) in filterChutes(bracelet.id_brac)" key="item.id" class="flex flex-col items-center border border-black">
+                        <br>
+
+                        <p class="text-xl">Chute {{index+1}}</p>
+                        <p>Date de la chute : {{dateFormat(item.dateheureevenement)}}</p>
                         <br>
                     </div>
                 </div>
@@ -90,7 +89,6 @@ Vue.component('accordion-item', {
         nomBraceletForm : this.bracelet.nomBracelet,
         message : "",
         raison :"",
-        chutes:[]
       };
     },
     computed : {
@@ -106,6 +104,16 @@ Vue.component('accordion-item', {
       screenButtonClick(screen){
         this.accordionScreen = screen
       },
+      filterChutes(id_brac){
+        const res = this.chutes.filter(c => c.id_brac == id_brac)
+        console.log(res)
+        
+        return res
+      },
+      dateFormat(d){
+        date = new Date(d)
+        return date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()
+      },
       submitModificationForm(e){
 
       },
@@ -114,7 +122,8 @@ Vue.component('accordion-item', {
       }
     },
     props: {
-      bracelet:Object
+      bracelet:Object,
+      chutes:Object
     }
   });
 
@@ -134,7 +143,7 @@ Vue.component('mesbracelets',{
             <div class="">
                 <div v-for="item in data" class="w-full">
                     <accordion>
-                        <accordion-item :bracelet = "item" class = "bg-white-200">        
+                        <accordion-item :bracelet = "item" :chutes="chutes" class = "bg-white-200">        
                         <accordion-item>
                     </accordion>
                 </div>
@@ -143,10 +152,12 @@ Vue.component('mesbracelets',{
     `,
     mounted(){
         this.getBracelets()
+        this.getChutes()
     },
     data(){
         return {
-            data : null
+            data : null,
+            chutes : null
         }
     },
     methods : {
@@ -154,6 +165,16 @@ Vue.component('mesbracelets',{
             axios.get("http://localhost:3000/getBracelet")
             .then(res => {
                 this.data = res.data
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+        },
+        getChutes(){
+            axios.get("http://localhost:3000/getEvent")
+            .then(res => {
+                console.log(res.data)
+                this.chutes = res.data
             })
             .catch(err =>{
                 console.log(err)

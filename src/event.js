@@ -14,6 +14,15 @@ async function getEvent(id_pers) {
     } catch (error) {
       console.error('Une erreur s\'est produite :', error);
     }
+}
+
+async function addEvent(id_brac) {
+  try {
+    const query = 'SELECT * FROM evenements WHERE id_pers = $1';
+    return  await db.any(query, [id_pers])
+  } catch (error) {
+    console.error('Une erreur s\'est produite :', error);
   }
+}
 
 module.exports = getEvent;
