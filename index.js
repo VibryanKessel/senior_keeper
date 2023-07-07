@@ -95,7 +95,7 @@ app.post('/alert', (req, res) => {
     .create({
       body: message,
       from: '+15734923612',
-      to: '+33662095641'
+      to: '+33751104142'
     })
     .then(message => {
       res.status(200).json({ message: "Alerte bien envoyée" });
