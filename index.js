@@ -134,8 +134,8 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/cmdBracelet', async (req, res) => {
-  const { id_client, date_fab, date_per, date_cmd, statut, date_liv } = req.body;
-  const cmdResult = await addBracelet(id_client, date_fab, date_per, statut, date_cmd, date_liv);
+  const { nomBracelet } = req.body;
+  const cmdResult = await addBracelet(sessions[req.sessionID].id_pers, nomBracelet);
   if (cmdResult.success) {
     res.status(200).json({ response: 'order successful' });
   } else {
@@ -145,8 +145,9 @@ app.post('/cmdBracelet', async (req, res) => {
 })
 
 app.post('/addContact', async (req, res) => {
-  const { name, tel, id_pers } = req.body;
-  const cmdResult = await addContact(name, tel, id_pers);
+  const { name, tel } = req.body;
+  console.log(req.body)
+  const cmdResult = await addContact(name, tel, sessions[req.sessionID].id_pers);
   if (cmdResult.success) {
     res.status(200).json({ response: 'insertion successful' });
   } else {

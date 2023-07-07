@@ -7,13 +7,13 @@ const saltRounds = 10;
 const db = pgp({ ...dbConfig, database: dbName })
 
 
-async function addBracelet( id_client, date_fab, date_per, statut, date_cmd, date_liv) {
+async function addBracelet( id_client, nomBracelet) {
   let success = false;
   let result;
 
   try {
-    const query = 'INSERT INTO bracelets(id_possesseur, date_fab, date_per, statut, date_cmd, date_liv) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
-    result = await db.one(query, [id_client,date_fab, date_per, statut, date_cmd, date_liv])
+    const query = 'INSERT INTO bracelets(id_possesseur, "nomBracelet") VALUES ($1, $2) RETURNING *';
+    result = await db.one(query, [id_client, nomBracelet])
     if(result) {
       console.log('Commande reussie'); // Affiche les données insérées
       success = true;
