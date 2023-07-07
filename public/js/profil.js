@@ -47,7 +47,7 @@ var app = new Vue({
             return date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()
         },
         getSessionData(){
-            axios.get("http://localhost:3000/who")
+            axios.get("http://82.165.31.82:3000/who")
             .then(res => {
                 this.userData = res.data
                 this.formModification = res.data
@@ -57,7 +57,7 @@ var app = new Vue({
             })
         },
         getCommands(){
-            axios.get("http://localhost:3000/getBracelet")
+            axios.get("http://82.165.31.82:3000/getBracelet")
             .then(res => {
                 this.commands = res.data
             })
@@ -66,7 +66,7 @@ var app = new Vue({
             })
         },
         getContacts(){
-            axios.get("http://localhost:3000/getContact")
+            axios.get("http://82.165.31.82:3000/getContact")
             .then(res => {
                 this.contacts = res.data
             })
@@ -76,7 +76,7 @@ var app = new Vue({
         },
         deleteContacts(id_contact){
             console.log(id_contact)
-            axios.post("http://localhost:3000/deleteContact",{id_contact})
+            axios.post("http://82.165.31.82:3000/deleteContact",{id_contact})
             .then(res => {
                 this.getContacts()
             })
@@ -90,7 +90,7 @@ var app = new Vue({
                 name : this.formContact.name,
                 tel : this.formContact.tel
             })
-            axios.post("http://localhost:3000/addContact",{
+            axios.post("http://82.165.31.82:3000/addContact",{
                 name : this.formContact.name,
                 tel : this.formContact.tel
             })
@@ -106,7 +106,7 @@ var app = new Vue({
         addCommand(e){
             e.preventDefault();            
 
-            axios.post("http://localhost:3000/cmdBracelet",{
+            axios.post("http://82.165.31.82:3000/cmdBracelet",{
                 nomBracelet : this.formBracelet.nomBracelet,
             })
             .then(res => {

@@ -34,7 +34,7 @@ app.use(session({
 }));
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://82.165.31.82:3000',
   credentials: true
 }))
 
@@ -111,7 +111,7 @@ app.post('/register', async (req, res) => {
   const { nom, prenom, adresse, email, telephone, motdepasse } = req.body;
   const registerResult = await registerUser(nom, prenom, adresse, email, telephone, motdepasse);
   if (registerResult.success) {
-    res.set('Location', 'http://localhost:3000/login')
+    res.set('Location', 'http://82.165.31.82:3000/login')
     res.status(200).json({ response: 'register successful' });
   } else {
     res.status(400).json({ response: 'register failed' });
@@ -125,7 +125,7 @@ app.post('/login', async (req, res) => {
   if (loginResult.success) {
     //req.session.user = loginResult.user;
     sessions[req.sessionID] = loginResult.user;
-    res.set('Location', 'http://localhost:3000/site')
+    res.set('Location', 'http://82.165.31.82:3000/site')
     res.status(200).json({ response: 'Login successful' });
   } else {
     res.status(400).json({ response: 'Login failed' });

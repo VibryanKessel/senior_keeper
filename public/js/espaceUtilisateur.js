@@ -162,7 +162,7 @@ Vue.component('mesbracelets',{
     },
     methods : {
         getBracelets(){
-            axios.get("http://localhost:3000/getBracelet")
+            axios.get("http://82.165.31.82:3000/getBracelet")
             .then(res => {
                 this.data = res.data
             })
@@ -171,7 +171,7 @@ Vue.component('mesbracelets',{
             })
         },
         getChutes(){
-            axios.get("http://localhost:3000/getEvent")
+            axios.get("http://82.165.31.82:3000/getEvent")
             .then(res => {
                 console.log(res.data)
                 this.chutes = res.data
@@ -200,7 +200,7 @@ var app = new Vue({
     },
     methods: {
         getSessionData(){
-            axios.get("http://localhost:3000/who")
+            axios.get("http://82.165.31.82:3000/who")
             .then(res => {
                 this.userData = res.data
             })
@@ -214,7 +214,7 @@ var app = new Vue({
         addCommand(e){
             e.preventDefault();            
 
-            axios.post("http://localhost:3000/cmdBracelet",{
+            axios.post("http://82.165.31.82:3000/cmdBracelet",{
                 nomBracelet : this.formBracelet.nomBracelet,
             })
             .then(res => {
