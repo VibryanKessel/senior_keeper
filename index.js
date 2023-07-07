@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
+const cors = require('cors');
 const session = require('express-session');
 const path = require("path");
 const createDatabase = require('./database');
@@ -23,6 +24,8 @@ import registerUser from './src/register';
 import loginUser from './src/login';
 import axios from 'axios';
  */
+
+const sessions = {}
 
 const app = express();
 const port = 3000;
@@ -47,6 +50,11 @@ app.use(session({
   saveUninitialized: false,
 }));
 
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
+
 app.use('/site', express.static(path.resolve('public')));
 
 app.use('/login', express.static(path.resolve('public/html/login.html')));
@@ -54,7 +62,7 @@ app.use('/register', express.static(path.resolve('public/html/register.html')));
 
 
 app.get('/', (req, res) => {
-  if (req.session.telephone) {
+  if (sessions[req.sessionID]) {
     res.redirect('/site');
   } else {
     res.redirect('/login');
@@ -64,8 +72,8 @@ app.get('/', (req, res) => {
 
 
 app.get('/espaceUtilisateur', (req, res) => {
-  if (req.session.telephone) {
-    express.static(path.resolve('public/html/espaceUtilisateur.html'))
+  if (sessions[req.sessionID] != null) {
+    res.status(200).redirect("/site/html/espaceUtilisateur.html");
   } else {
     res.redirect('/login');
   }
@@ -125,9 +133,9 @@ app.post('/login', async (req, res) => {
   const loginResult = await loginUser(telephone, motdepasse);
   if (loginResult.success) {
     req.session.user = loginResult.user;
-    res.set('Location', 'http://82.165.31.82:3000/site')
+    sessions[req.sessionID] = req.session.user
+    res.set('Location', 'http://localhost:3000/site')
     res.status(200).json({response :'Login successful'});
-    console.log('Login successful');
   } else {
     res.status(400).json({response :'Login failed'});
     console.log('Login failed');

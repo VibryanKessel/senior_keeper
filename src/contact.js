@@ -49,7 +49,7 @@ async function deleteContact(id_contact) {
 async function getContact(id) {
   try {
     const query = 'SELECT * FROM contactsurgence WHERE id_contact = $1';
-    return await db.one(query, [id])
+    return await db.oneOrNone(query, [id])
   } catch (error) {
     console.error('Une erreur s\'est produite :', error);
   }

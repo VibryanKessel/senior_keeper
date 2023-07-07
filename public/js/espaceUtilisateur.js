@@ -121,7 +121,7 @@ Vue.component('accordion', {
 
 Vue.component('mesbracelets',{
     template : `
-        <div class = "flex flex-col space-y-64 items-center w-3/4 bg-green"> 
+        <div class = "flex flex-col space-y-64 items-center bg-green"> 
             <p class="text-5xl flex items-center justify-center"> Liste de vos bracelets </p>
             <div v-for="item in data" >
                 <accordion>

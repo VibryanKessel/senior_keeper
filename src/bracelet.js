@@ -29,7 +29,7 @@ async function addBracelet( id_client, date_fab, date_per, statut, date_cmd, dat
 async function getBracelet(id) {
   try {
     const query = 'SELECT * FROM bracelets WHERE id_bracelet = $1';
-    return  await db.one(query, [id])
+    return  await db.oneOrNone(query, [id])
   } catch (error) {
     console.error('Une erreur s\'est produite :', error);
   }

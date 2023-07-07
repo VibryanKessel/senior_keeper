@@ -10,7 +10,7 @@ async function loginUser(tel, password) {
   let result;
 
   try {
-    const query = 'SELECT motdepasse FROM Personnes WHERE telephone = $1';
+    const query = 'SELECT * FROM Personnes WHERE telephone = $1';
     result = await db.oneOrNone(query, tel);
     
     if (result) {
