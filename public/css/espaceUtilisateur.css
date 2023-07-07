@@ -60,14 +60,13 @@
      
 }
 
-.accordion{
-    /* Styles pour l'accordéon */
+/* Styles pour l'accordéon */
 .accordion {
     width: 100%;
   }
   
   /* Styles pour les titres des sections */
-  .accordion__title {
+  .accordion__title {   
     background-color: #f2f2f2;
     color: #333;
     padding: 10px;
@@ -87,5 +86,5 @@
     transition: transform 0.3s ease;
     transform: rotate(180deg);
   }
-  
+
   
